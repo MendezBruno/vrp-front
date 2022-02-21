@@ -11,6 +11,7 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import AddMarkerButton from './AddButtonMarker';
+import LongMenu from './Menu';
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -27,7 +28,8 @@ const LeafletMap: React.FC = () => {
   return (
     
     <MapContainer center={[48.865572, 2.283523]} zoom={8} scrollWheelZoom={false}>
-      <AddMarkerButton />
+      {/* <AddMarkerButton/> */}
+      <LongMenu></LongMenu>
       <LayerGroup>
         { points.map( point => point) } 
       </LayerGroup> 
