@@ -6,9 +6,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useState } from 'react';
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+export interface IAddressFormProps {
+  open: boolean
+}
+
+const AddressForm: React.FC<IAddressFormProps> = (props) => {
+  const [open, setOpen] = React.useState(props.open);
+  const [addressInput, setAddressInput] = useState("");
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,6 +26,7 @@ export default function FormDialog() {
   };
 
   const handleSubmitClose = () => {
+    console.log(addressInput)
     setOpen(false);
   };
 
@@ -40,6 +48,8 @@ export default function FormDialog() {
             label="Address"
             type="text"
             fullWidth
+            value={addressInput}
+            onChange={(e) => setAddressInput(e.target.value)}
             variant="standard"
           />
         </DialogContent>
@@ -51,3 +61,5 @@ export default function FormDialog() {
     </div>
   );
 }
+
+export default AddressForm;

@@ -11,16 +11,25 @@ interface MenuItemOptions {
   action: () => void;
 }
 
+export interface IAddressFormProps {
+  handleClickOpen: () => void
+}
 
 const ITEM_HEIGHT = 48;
 
-const LongMenu: React.FC = (props) => {
+const LongMenu: React.FC<IAddressFormProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const addMarker = useAddMarker(false);
-  const [options, setOptions ] = React.useState<MenuItemOptions[]>([{
-    name: 'Add Marker',
-    action: () => { addMarker.doActivate(!addMarker.activate) }
-  }]);
+  const [options, setOptions ] = React.useState<MenuItemOptions[]>([
+    { 
+      name: 'Add Marker',
+      action: () => { addMarker.doActivate(!addMarker.activate) }
+    },
+    { 
+      name: 'Add Address',
+      action: () => { props.handleClickOpen() }
+    }
+  ]);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
