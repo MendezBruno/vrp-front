@@ -9,33 +9,28 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 
 export interface IAddressFormProps {
-  open: boolean
+  openAddressForm: boolean
+  handleClickAddressForm: (value: boolean) => void
 }
 
 const AddressForm: React.FC<IAddressFormProps> = (props) => {
-  const [open, setOpen] = React.useState(props.open);
+  const { openAddressForm, handleClickAddressForm } = props;
   const [addressInput, setAddressInput] = useState("");
 
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    handleClickAddressForm(false);
   };
 
   const handleSubmitClose = () => {
     console.log(addressInput)
-    setOpen(false);
+    handleClickAddressForm(false);
   };
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
+
+      <Dialog open={openAddressForm} onClose={handleClose}>
         <DialogTitle>Agregar una direccion</DialogTitle>
         <DialogContent>
           <DialogContentText>

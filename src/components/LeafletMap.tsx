@@ -26,17 +26,13 @@ const LeafletMap: React.FC = () => {
   const defaultLatLng: LatLngTuple = [48.865572, 2.283523];
   const zoom:number = 8;
   const [open, setOpen] = useState(false)
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  }
   
   return (
     
     <MapContainer center={[48.865572, 2.283523]} zoom={8} scrollWheelZoom={false}>
       {/* <AddMarkerButton/> */}
-      <LongMenu handleClickOpen={handleClickOpen}></LongMenu>
-      <AddressForm open={open} ></AddressForm>
+      <LongMenu></LongMenu>
+      
       <LayerGroup>
         { points.map( point => point) } 
       </LayerGroup> 

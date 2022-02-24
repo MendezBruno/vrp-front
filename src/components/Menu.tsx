@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import useAddMarker from '../customHooks/useAddMarker';
+import AddressForm from './AddressForm';
 
 interface MenuItemOptions {
 
@@ -12,7 +13,6 @@ interface MenuItemOptions {
 }
 
 export interface IAddressFormProps {
-  handleClickOpen: () => void
 }
 
 const ITEM_HEIGHT = 48;
@@ -20,6 +20,7 @@ const ITEM_HEIGHT = 48;
 const LongMenu: React.FC<IAddressFormProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const addMarker = useAddMarker(false);
+  const [openAddressForm, setOpenAddressForm] = React.useState(false);
   const [options, setOptions ] = React.useState<MenuItemOptions[]>([
     { 
       name: 'Add Marker',
@@ -27,7 +28,7 @@ const LongMenu: React.FC<IAddressFormProps> = (props) => {
     },
     { 
       name: 'Add Address',
-      action: () => { props.handleClickOpen() }
+      action: () => { handleClickAddressForm(true) }
     }
   ]);
   const open = Boolean(anchorEl);
@@ -37,7 +38,11 @@ const LongMenu: React.FC<IAddressFormProps> = (props) => {
   const handleClose = (event: any) => {
     setAnchorEl(null);
     event.action()
-   };
+  };
+
+  const handleClickAddressForm = (value: boolean) => {
+    setOpenAddressForm(value);
+  }
 
   return (
     <div className="Menu">
@@ -72,6 +77,7 @@ const LongMenu: React.FC<IAddressFormProps> = (props) => {
           </MenuItem>
         ))}
       </Menu>
+      <AddressForm openAddressForm={openAddressForm} handleClickAddressForm={handleClickAddressForm} ></AddressForm>
     </div>
   );
 }
