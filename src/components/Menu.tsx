@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import useAddMarker from '../customHooks/useAddMarker';
 import AddressForm from './AddressForm';
+import ActionDialog from './ActionDialogs';
 
 interface MenuItemOptions {
 
@@ -12,15 +13,20 @@ interface MenuItemOptions {
   action: () => void;
 }
 
-export interface IAddressFormProps {
+export interface ILongMenuProps {
+  points: any[]
 }
 
 const ITEM_HEIGHT = 48;
 
-const LongMenu: React.FC<IAddressFormProps> = (props) => {
+const LongMenu: React.FC<ILongMenuProps> = (props) => {
+  const { points } = props
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const addMarker = useAddMarker(false);
-  const [openAddressForm, setOpenAddressForm] = React.useState(false);
+  const [openAddressForm, setOpenAddressForm] = React.useState(false);  
+  const [openMenuAction, setOpenMenuAction] = React.useState(false);
+
+  const open = Boolean(anchorEl);
   const [options, setOptions ] = React.useState<MenuItemOptions[]>([
     { 
       name: 'Add Marker',
@@ -29,9 +35,12 @@ const LongMenu: React.FC<IAddressFormProps> = (props) => {
     { 
       name: 'Add Address',
       action: () => { handleClickAddressForm(true) }
+    },
+    { 
+      name: 'Menu Actions',
+      action: () => { handleClickMenuAction(true) }
     }
   ]);
-  const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -39,9 +48,11 @@ const LongMenu: React.FC<IAddressFormProps> = (props) => {
     setAnchorEl(null);
     event.action()
   };
-
   const handleClickAddressForm = (value: boolean) => {
     setOpenAddressForm(value);
+  }
+  const handleClickMenuAction = (value: boolean) => {
+    setOpenMenuAction(value);
   }
 
   return (
@@ -78,6 +89,7 @@ const LongMenu: React.FC<IAddressFormProps> = (props) => {
         ))}
       </Menu>
       <AddressForm openAddressForm={openAddressForm} handleClickAddressForm={handleClickAddressForm} ></AddressForm>
+      <ActionDialog open={openMenuAction} handleClickMenuAction={handleClickMenuAction} ></ActionDialog>
     </div>
   );
 }

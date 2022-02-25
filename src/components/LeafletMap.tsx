@@ -23,15 +23,13 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 const LeafletMap: React.FC = () => {
   const { points } = useContext(LayerContext);
-  const defaultLatLng: LatLngTuple = [48.865572, 2.283523];
   const zoom:number = 8;
-  const [open, setOpen] = useState(false)
   
   return (
     
-    <MapContainer center={[48.865572, 2.283523]} zoom={8} scrollWheelZoom={false}>
+    <MapContainer center={[-34.72468364086567, -58.26092720031738]} zoom={zoom} scrollWheelZoom={false}>
       {/* <AddMarkerButton/> */}
-      <LongMenu></LongMenu>
+      <LongMenu points={points}></LongMenu>
       
       <LayerGroup>
         { points.map( point => point) } 
