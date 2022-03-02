@@ -5,12 +5,15 @@ import { Package } from '../../models/Package';
 
 export interface ILayerContex {
     points: any[],
-    addPoint: (aPoint: any ) => void
+    addPoint: (aPoint: any ) => void,
+    createRoute: (points: any[]) => void
 }
 
 const defaultContex: ILayerContex = {
     points: [new LatLng(0,0)],
-    addPoint: (aPoint: any ) => {}
+    addPoint: (aPoint: any ) => {},
+    createRoute: (points: any[]) => {}
+
 }
 
 const LayerContext = React.createContext<ILayerContex>(defaultContex);
@@ -23,9 +26,9 @@ const LayerContextProvider = ({ children }: any) => {
         setPoint([points, ...[point]])
         console.log(points);
     }
-    const createRoute = async (points: any[]) => {
+    const createRoute = async () => {
         const aPackages: Package[] = []
-        points.forEach( aPoint => {
+        points.forEach( (aPoint: any) => {
             aPackages.push({ packageId: Math.random()*10000, location: aPoint  })
         })
         const start: Package | undefined = aPackages.shift()
@@ -37,6 +40,7 @@ const LayerContextProvider = ({ children }: any) => {
         try {
             const { data } = await axios.post('http://localhost:5000/orsm/v2/trip', packageDTO);
             console.log("route response: ",data);
+            setRoute(data);
         } catch (error) {
             if (axios.isAxiosError(error)) {
               console.log("Axios error: ", error);
@@ -49,7 +53,8 @@ const LayerContextProvider = ({ children }: any) => {
     }
     const defaultValue = {
         points,
-        addPoint
+        addPoint,
+        createRoute
     }
     return (
         <LayerContext.Provider value={defaultValue}>
