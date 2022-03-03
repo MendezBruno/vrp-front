@@ -18,7 +18,7 @@ const useAddMarker = (selected:boolean): IUseAddMarker => {
     const map = useMap();
 
 // the hook useContext is used to access to the previously defined LayerContext.
-    const { addPoint } = useContext(LayerContext);
+    const { addPoint, addLocation } = useContext(LayerContext);
 
 // add a state to activate the Event
     const [activate, setActivate] = useState(selected);
@@ -36,8 +36,9 @@ const useAddMarker = (selected:boolean): IUseAddMarker => {
             e.originalEvent.preventDefault();
             // create your Marker with the react leaflet component Marker
             addPoint(<Marker position={e.latlng} />);
+            addLocation( e.latlng );
             e.originalEvent.stopPropagation();
-        }, [addPoint]);
+        }, [addPoint, addLocation]);
 
 
     // activate the EventHandler with the useEffect handler
