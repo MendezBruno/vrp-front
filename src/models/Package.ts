@@ -1,5 +1,5 @@
 export interface Start {
-    location: number[];
+    location: number[] | undefined;
 }
 
 export interface Package {

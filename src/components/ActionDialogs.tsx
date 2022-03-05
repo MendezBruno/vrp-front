@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -9,6 +10,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { blue } from '@mui/material/colors';
 import { LayerContext } from './context/LayerContext';
 import { useContext } from 'react';
+import RouteInfoModal from './RouteInfoModal';
 
 
 interface MenuItemOptions {
@@ -24,6 +26,10 @@ const options: MenuItemOptions[] = [
     { 
       name: 'Clean Route',
       action: () => { console.log('Clean Route') }
+    },
+    { 
+      name: 'See Info',
+      action: () => { console.log('Clean Route') }
     }
 ]
 
@@ -33,7 +39,8 @@ export interface ActionDialogProps {
 }
 
 const ActionDialog = (props: ActionDialogProps) => {
-  const { createRoute } = useContext(LayerContext);
+  const [openRouteInfoModal, setopenRouteInfoModal] = React.useState(false);
+  const { createRoute, route } = useContext(LayerContext);
   const { open, handleClickMenuAction } = props;
   options[0].action = createRoute;
   const handleClose = () => {
@@ -41,10 +48,16 @@ const ActionDialog = (props: ActionDialogProps) => {
     
     console.log("I am closed")
   };
+  
+  const handleClickRouteInfoModal = (value: boolean) => {
+    setopenRouteInfoModal(true);
+  }
+  options[2].action = handleClickRouteInfoModal;
 
   return (
+    <>
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Set backup account</DialogTitle>
+      <DialogTitle>Choose an option</DialogTitle>
       <List sx={{ pt: 0 }}>
         {options.map((option) => (
           <ListItem button onClick={() => option.action()} key={option.name}>
@@ -58,6 +71,8 @@ const ActionDialog = (props: ActionDialogProps) => {
         ))}
       </List>
     </Dialog>
+    <RouteInfoModal open={openRouteInfoModal} route={route} handleClickRouteInfoModal={handleClickRouteInfoModal} ></RouteInfoModal>
+    </>
   );
 }
 

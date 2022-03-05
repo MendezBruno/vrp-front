@@ -90,6 +90,7 @@ const LongMenu: React.FC<ILongMenuProps> = (props) => {
       </Menu>
       <AddressForm openAddressForm={openAddressForm} handleClickAddressForm={handleClickAddressForm} ></AddressForm>
       <ActionDialog open={openMenuAction} handleClickMenuAction={handleClickMenuAction} ></ActionDialog>
+    
     </div>
   );
 }
