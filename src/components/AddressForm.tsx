@@ -6,28 +6,31 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useState } from 'react';
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+export interface IAddressFormProps {
+  openAddressForm: boolean
+  handleClickAddressForm: (value: boolean) => void
+}
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+const AddressForm: React.FC<IAddressFormProps> = (props) => {
+  const { openAddressForm, handleClickAddressForm } = props;
+  const [addressInput, setAddressInput] = useState("");
+
 
   const handleClose = () => {
-    setOpen(false);
+    handleClickAddressForm(false);
   };
 
   const handleSubmitClose = () => {
-    setOpen(false);
+    console.log(addressInput)
+    handleClickAddressForm(false);
   };
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
+
+      <Dialog open={openAddressForm} onClose={handleClose}>
         <DialogTitle>Agregar una direccion</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -40,6 +43,8 @@ export default function FormDialog() {
             label="Address"
             type="text"
             fullWidth
+            value={addressInput}
+            onChange={(e) => setAddressInput(e.target.value)}
             variant="standard"
           />
         </DialogContent>
@@ -51,3 +56,5 @@ export default function FormDialog() {
     </div>
   );
 }
+
+export default AddressForm;

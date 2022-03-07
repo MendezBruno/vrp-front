@@ -4,6 +4,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import useAddMarker from '../customHooks/useAddMarker';
+import AddressForm from './AddressForm';
+import ActionDialog from './ActionDialogs';
 
 interface MenuItemOptions {
 
@@ -11,24 +13,47 @@ interface MenuItemOptions {
   action: () => void;
 }
 
+export interface ILongMenuProps {
+  points: any[]
+}
 
 const ITEM_HEIGHT = 48;
 
-const LongMenu: React.FC = (props) => {
+const LongMenu: React.FC<ILongMenuProps> = (props) => {
+  const { points } = props
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const addMarker = useAddMarker(false);
-  const [options, setOptions ] = React.useState<MenuItemOptions[]>([{
-    name: 'Add Marker',
-    action: () => { addMarker.doActivate(!addMarker.activate) }
-  }]);
+  const [openAddressForm, setOpenAddressForm] = React.useState(false);  
+  const [openMenuAction, setOpenMenuAction] = React.useState(false);
+
   const open = Boolean(anchorEl);
+  const [options, setOptions ] = React.useState<MenuItemOptions[]>([
+    { 
+      name: 'Add Marker',
+      action: () => { addMarker.doActivate(!addMarker.activate) }
+    },
+    { 
+      name: 'Add Address',
+      action: () => { handleClickAddressForm(true) }
+    },
+    { 
+      name: 'Menu Actions',
+      action: () => { handleClickMenuAction(true) }
+    }
+  ]);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (event: any) => {
     setAnchorEl(null);
     event.action()
-   };
+  };
+  const handleClickAddressForm = (value: boolean) => {
+    setOpenAddressForm(value);
+  }
+  const handleClickMenuAction = (value: boolean) => {
+    setOpenMenuAction(value);
+  }
 
   return (
     <div className="Menu">
@@ -63,6 +88,9 @@ const LongMenu: React.FC = (props) => {
           </MenuItem>
         ))}
       </Menu>
+      <AddressForm openAddressForm={openAddressForm} handleClickAddressForm={handleClickAddressForm} ></AddressForm>
+      <ActionDialog open={openMenuAction} handleClickMenuAction={handleClickMenuAction} ></ActionDialog>
+    
     </div>
   );
 }

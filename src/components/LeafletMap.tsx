@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { LatLngTuple } from 'leaflet';
 import { LayerGroup, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { LayerContext } from './context/LayerContext';
@@ -12,6 +12,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import AddMarkerButton from './AddButtonMarker';
 import LongMenu from './Menu';
+import AddressForm from './AddressForm';
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -22,14 +23,14 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 const LeafletMap: React.FC = () => {
   const { points } = useContext(LayerContext);
-  const defaultLatLng: LatLngTuple = [48.865572, 2.283523];
   const zoom:number = 8;
   
   return (
     
-    <MapContainer center={[48.865572, 2.283523]} zoom={8} scrollWheelZoom={false}>
+    <MapContainer center={[-34.72468364086567, -58.26092720031738]} zoom={zoom} scrollWheelZoom={false}>
       {/* <AddMarkerButton/> */}
-      <LongMenu></LongMenu>
+      <LongMenu points={points}></LongMenu>
+      
       <LayerGroup>
         { points.map( point => point) } 
       </LayerGroup> 
