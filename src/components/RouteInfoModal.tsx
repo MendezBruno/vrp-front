@@ -29,7 +29,8 @@ const RouteInfoModal = (props: RouteInfoModalIProps) => {
     const { open, handleClickRouteInfoModal, route } = props;
     // let { packages } = props
     const handleClose = () => {
-        handleClickRouteInfoModal(false)       
+      console.log("I need close")
+        handleClickRouteInfoModal(false)    
     };
 
   return (
@@ -45,7 +46,7 @@ const RouteInfoModal = (props: RouteInfoModalIProps) => {
             Route
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <RouteInfoTable packages={route.packages} ></RouteInfoTable>
+            {route && <RouteInfoTable packages={route.packages} ></RouteInfoTable>}
           </Typography>
         </Box>
       </Modal>

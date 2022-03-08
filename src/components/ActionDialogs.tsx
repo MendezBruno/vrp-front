@@ -29,7 +29,7 @@ const options: MenuItemOptions[] = [
     },
     { 
       name: 'See Info',
-      action: () => { console.log('Clean Route') }
+      action: () => { console.log('Route info') }
     }
 ]
 
@@ -50,9 +50,14 @@ const ActionDialog = (props: ActionDialogProps) => {
   };
   
   const handleClickRouteInfoModal = (value: boolean) => {
-    setopenRouteInfoModal(true);
+    setopenRouteInfoModal(value);
   }
-  options[2].action = handleClickRouteInfoModal;
+
+  const handleClickRouteInfoModalInTrue = () => {
+    handleClickRouteInfoModal(true);
+  }
+
+  options[2].action = handleClickRouteInfoModalInTrue;
 
   return (
     <>
