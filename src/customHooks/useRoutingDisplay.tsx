@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
-import  'leaflet-routing-machine'
+import  'leaflet-routing-machine';
+import 'leaflet-gpx'
 
 interface IuseRoutingDisplay {
     activate: boolean;
@@ -16,6 +17,11 @@ const displayControl = L.Routing.control({
     routeWhileDragging: true
 })
 
+
+const gpx = './myGeoJson.gpx'; // URL to your GPX file or the GPX itself
+const gpxControl = new L.GPX(gpx, {async: true});
+
+
 // the hook Effect will be activated by the click on the button
 const useRoutingDisplay = (): any => {
 
@@ -24,7 +30,9 @@ const useRoutingDisplay = (): any => {
 // It is a simple way to access the map and its content.
 
     const map = useMap();
-    displayControl.addTo(map)
+    //displayControl.addTo(map)
+
+    gpxControl.on('loaded', function(e) { }).addTo(map);
 // the hook useContext is used to access to the previously defined LayerContext.
     // const { } = useContext(LayerContext);
 
