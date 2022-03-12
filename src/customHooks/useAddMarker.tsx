@@ -1,22 +1,14 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Marker, useMap } from 'react-leaflet';
-import L, { LeafletMouseEvent } from 'leaflet';
+import { LeafletMouseEvent } from 'leaflet';
 import { LayerContext } from '../components/context/LayerContext';
-import  'leaflet-routing-machine'
+
 
 
 interface IUseAddMarker {
     activate: boolean;
     doActivate: (act: boolean) => void;
 }
-
-const displayControl = L.Routing.control({
-    waypoints: [
-        L.latLng(-34.72468364086567, -58.26092720031738),
-        L.latLng(-34.28, -58.26)
-    ],
-    routeWhileDragging: true
-})
 
 // the hook Effect will be activated by the click on the button
 const useAddMarker = (selected:boolean): IUseAddMarker => {

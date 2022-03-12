@@ -24,7 +24,7 @@ const LongMenu: React.FC<ILongMenuProps> = (props) => {
   const { points } = props
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const addMarker = useAddMarker(false);
-  const routingDisplay = useRoutingDisplay();
+  const { displayRoute } = useRoutingDisplay();
 
 
   const [openAddressForm, setOpenAddressForm] = React.useState(false);  
@@ -58,6 +58,8 @@ const LongMenu: React.FC<ILongMenuProps> = (props) => {
   const handleClickMenuAction = (value: boolean) => {
     setOpenMenuAction(value);
   }
+
+  displayRoute(true)
 
   return (
     <div className="Menu">
