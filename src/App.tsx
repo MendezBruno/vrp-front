@@ -1,8 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './react-leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import L from 'leaflet';
 

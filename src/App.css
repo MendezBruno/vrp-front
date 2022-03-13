@@ -1,9 +1,11 @@
 @import url('~leaflet/dist/leaflet.css');
-/* @import url('~leaflet-routing-machine/dist/leaflet-routing-machine.css'); */
-/* @import url('~react-leaflet-markercluster/dist/styles.min.css'); */
 .App {
   text-align: center;
 }
+
+/*.leaflet-touch .leaflet-bar {
+  background: white;
+}*/
 
 .AddMark {
   position: absolute;

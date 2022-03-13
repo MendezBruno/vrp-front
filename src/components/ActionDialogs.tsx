@@ -11,6 +11,7 @@ import { blue } from '@mui/material/colors';
 import { LayerContext } from './context/LayerContext';
 import { useContext } from 'react';
 import RouteInfoModal from './RouteInfoModal';
+import useRoutingDisplay from '../customHooks/useRoutingDisplay';
 
 
 interface MenuItemOptions {
@@ -30,6 +31,10 @@ const options: MenuItemOptions[] = [
     { 
       name: 'See Info',
       action: () => { console.log('Route info') }
+    },
+    { 
+      name: 'Display Route',
+      action: (route: any) => { console.log('Display Route') }
     }
 ]
 
@@ -42,6 +47,8 @@ const ActionDialog = (props: ActionDialogProps) => {
   const [openRouteInfoModal, setopenRouteInfoModal] = React.useState(false);
   const { createRoute, route } = useContext(LayerContext);
   const { open, handleClickMenuAction } = props;
+  const { displayRoute } = useRoutingDisplay();
+
   options[0].action = createRoute;
   const handleClose = () => {
     handleClickMenuAction(false)
@@ -58,6 +65,7 @@ const ActionDialog = (props: ActionDialogProps) => {
   }
 
   options[2].action = handleClickRouteInfoModalInTrue;
+  options[3].action = displayRoute
 
   return (
     <>
@@ -65,7 +73,14 @@ const ActionDialog = (props: ActionDialogProps) => {
       <DialogTitle>Choose an option</DialogTitle>
       <List sx={{ pt: 0 }}>
         {options.map((option) => (
-          <ListItem button onClick={() => option.action()} key={option.name}>
+          <ListItem button onClick={ () => {
+            if ( option.name === 'Display Route') {
+              option.action(route)
+            } else {
+              option.action()
+            }
+            
+          }  } key={option.name}>
             <ListItemAvatar>
               <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
                 <PersonIcon />

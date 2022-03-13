@@ -6,7 +6,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import useAddMarker from '../customHooks/useAddMarker';
 import AddressForm from './AddressForm';
 import ActionDialog from './ActionDialogs';
-import useRoutingDisplay from '../customHooks/useRoutingDisplay';
 
 interface MenuItemOptions {
 
@@ -24,7 +23,6 @@ const LongMenu: React.FC<ILongMenuProps> = (props) => {
   const { points } = props
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const addMarker = useAddMarker(false);
-  const { displayRoute } = useRoutingDisplay();
 
 
   const [openAddressForm, setOpenAddressForm] = React.useState(false);  
@@ -59,7 +57,6 @@ const LongMenu: React.FC<ILongMenuProps> = (props) => {
     setOpenMenuAction(value);
   }
 
-  displayRoute(true)
 
   return (
     <div className="Menu">
